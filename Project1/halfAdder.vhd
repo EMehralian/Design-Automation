@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 03/02/2017 05:15:02 PM
+-- Create Date: 03/02/2017 05:43:59 PM
 -- Design Name: 
--- Module Name: fullAdder - Behavioral
+-- Module Name: halfAdder - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,20 +31,17 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity fullAdder is
+entity halfAdder is
 Port (  a: in std_logic;
 		b: in std_logic;
-		cin: in std_logic;
 		s: out std_logic;
 		cout: out std_logic);
-end fullAdder;
+end halfAdder;
 
-architecture Behavioral of fullAdder is
- signal xorSig , andSig1, andSig2 : std_logic;
- begin
- xorSig <= a xor b ;
- andSig1 <= cin and xorSig ;
- andSig2 <= a and b;
- s <= xorSig xor cin;
- cout<= andSig1 or andSig2;
+architecture Behavioral of halfAdder is
+
+begin
+    s <= a xor b ;
+    cout<= a and b;
+
 end Behavioral;

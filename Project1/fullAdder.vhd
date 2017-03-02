@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 03/02/2017 04:38:19 PM
+-- Create Date: 03/02/2017 05:15:02 PM
 -- Design Name: 
--- Module Name: BCDMultiplier - Behavioral
+-- Module Name: fullAdder - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -17,6 +17,8 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
+
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
@@ -29,16 +31,21 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity BCDMultiplier is
+entity fullAdder is
 Port (  a: in std_logic;
 		b: in std_logic;
 		cin: in std_logic;
 		s: out std_logic;
 		cout: out std_logic);
-end BCDMultiplier;
+end fullAdder;
 
-architecture Behavioral of BCDMultiplier is
+architecture Behavioral of fullAdder is
 
-  begin
-
+ signal xorSig , andSig1, andSig2 : std_logic;
+ begin
+ xorSig <= a xor b ;
+ andSig1 <= cin and xorSig ;
+ andSig2 <= a and b;
+ s <= xorSig xor cin;
+ cout<= andSig1 or andSig2;
 end Behavioral;

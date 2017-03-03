@@ -33,8 +33,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity multiplier2bit is
 Port ( 
-       a,b:in bit_vector(1 downto 0);
-       s: out bit_vector(3 downto 0));
+       a,b:in std_logic_vector(1 downto 0);
+       s: out std_logic_vector(3 downto 0));
 end multiplier2bit;
 
 architecture Behavioral of multiplier2bit is

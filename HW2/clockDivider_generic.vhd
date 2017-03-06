@@ -40,15 +40,24 @@ port(
 end clockDivider_generic;
 
 architecture Behavioral of clockDivider_generic is
-    signal count:integer :=0 ;
+    signal counter:integer :=0 ;
+    signal tempCLK : std_logic :='0'; 
 begin
-    process(clk_in,reset)
+    devided_clk <= tempCLK;
+    process(clk,reset)
     begin
         if(reset = '1') then
-            count <=0;
-        end if
-        if rising_edge(clk_in) then
-            
+            counter <= 0;
+        
+        elsif rising_edge(clk) then
+            if(counter = n ) then
+                counter <=0;
+                tempCLK <= not (tempCLK); 
+            else
+                counter <= counter + 1;
+            end if;
+         end if;    
+        
     end process;
 
 end Behavioral;

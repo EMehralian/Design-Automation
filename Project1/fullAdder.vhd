@@ -21,6 +21,8 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_unsigned.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -40,11 +42,12 @@ Port (  a: in std_logic;
 end fullAdder;
 
 architecture Behavioral of fullAdder is
- signal xorSig , andSig1, andSig2 : std_logic;
+
+ signal SumSig : std_logic_vector(1 downto 0);
  begin
- xorSig <= a xor b ;
- andSig1 <= cin and xorSig ;
- andSig2 <= a and b;
- s <= xorSig xor cin;
- cout<= andSig1 or andSig2;
+
+ sumSig <= ('0'& a) + ('0'& b) + ('0'& cin) ;
+
+ s <= sumSig(0);
+ cout<= sumSig(1);
 end Behavioral;

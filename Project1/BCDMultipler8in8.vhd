@@ -58,19 +58,10 @@ architecture Behavioral of BCDMultipler8in8 is
          s:out std_logic_vector(63 downto 0)
     );
     end component;
-    component fullAdder is
-    Port (  a: in std_logic;
-            b: in std_logic;
-            cin: in std_logic;
-            s: out std_logic;
-            cout: out std_logic);
-    end component;
     signal res,resss,result0,result1,result2,result3,result4,result5,result6,result7,final : std_logic_vector (63 downto 0);
     signal vv,v0,v1,v2,v3,v4,v5,v6,v7: std_logic_vector(35 downto 0);
     signal cout0,cout1,cout2,cout3,cout4,cout5,cout6,cout7 :std_logic;
     signal counter: std_logic;
-
-
 begin
     result0 <= (others=>'0');
     counter <= '0';
@@ -93,14 +84,47 @@ begin
     adding6:BCDAdder8Bit port map(v1,result6(59 downto 0)&"0000",'0',result7);
     adding7:BCDAdder8Bit port map(v0,result7(59 downto 0)&"0000",'0',final);
     
-    adding8:BCDAdder8Bit port map(vv,res,'0',resss);
+   -- adding8:BCDAdder8Bit port map(vv,res,'0',resss);
 
-   process(clk)
-   begin
-        
-        
-        
-   end process;
 
-    
 end Behavioral;
+
+
+
+architecture sequential of BCDMultipler8in8 is
+    component bitInDigitBCDMultiplier is
+    Port ( 
+       a:in std_logic_vector(31 downto 0);
+       b:in std_logic_vector(3 downto 0);
+       vo:out std_logic_vector(35 downto 0)
+    );
+     end component;
+    component BCDAdder8Bit is
+    Port ( 
+         a:in std_logic_vector(35 downto 0);
+         b:in std_logic_vector(63 downto 0);
+         cin:in std_logic;
+         s:out std_logic_vector(63 downto 0)
+    );
+    end component;
+    signal res,ress: std_logic_vector (63 downto 0):=(others=>'0');
+    signal vv: std_logic_vector(35 downto 0):=(others=>'0');
+    signal temp:std_logic_vector(3 downto 0);
+    signal test : std_logic_vector (63 downto 0):=(others=>'0');
+begin
+    inst8:bitInDigitBCDMultiplier port map(a,temp,vv);
+    adding8:BCDAdder8Bit port map(vv,res,'0',ress);
+   process(clk)
+    variable counter : integer := 7;
+   begin 
+
+    if(clk'event and CLK='1')then
+       if(counter >= 0) then  
+            temp <= b((counter+1)*4-1 downto (counter)*4);
+            counter := counter - 1;
+         end if;
+      end if;
+     res<=ress(59 downto 0)&"0000";
+     
+   end process;
+end sequential;

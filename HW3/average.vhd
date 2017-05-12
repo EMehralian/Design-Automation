@@ -21,36 +21,40 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-package mytypes is
-    type data is array (0 to 15) of integer range 15 to 40;
-end package mytypes;
-
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
-use work.mytypes.all;
+
 
 entity average is
 port(
     
     clk: in std_logic;
-    input: inout data;
-    last_input: in integer;
+    input: in integer;
     output: inout integer :=0
 );
 end average;
 
 architecture Behavioral of average is
+
+    type mytype is array (0 to 1) of integer;
+    
+    function  calculate  (Finput  :  in  mytype)  return  integer  is                                                                                                     
+      begin                                                        
+        add: if Finput(0)>0 then
+        
+            return Finput(0)+Finput(1);
+        end if add;
+        result: if Finput(0)=0 then
+                    return Finput(1)/16;
+        end if result; 
+                                                        
+    end function; 
+    signal temp: integer;
 begin
-    process(clk)
+    temp <= output ;
+    process(clk, input)
     begin
         if( clk'event and clk ='1') then
-            for I in 0 to 15 loop
-                if( input(I) /=  0) then
-                    output <= output + input(I);
-                end if;
-            end loop;   
+            output <= calculate((input,temp));
         end if;
     end process;
-    --output <= output/16;
 end Behavioral;

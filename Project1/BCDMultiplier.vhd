@@ -56,9 +56,9 @@ Port (
        s: out std_logic_vector(3 downto 0));
 end component;
 
-signal mult1,mult2, mult3, mult4: std_logic_vector(3 downto 0);
-signal fa1,fa2,fa3,fa4,fa5,fa6,fa7: std_logic_vector(1 downto 0);
-signal ha1,ha2 :std_logic_vector (1 downto 0);
+signal mult1,mult2, mult3, mult4: std_logic_vector(3 downto 0):= (others=> '0');
+signal fa1,fa2,fa3,fa4,fa5,fa6,fa7: std_logic_vector(1 downto 0):= (others=> '0');
+signal ha1,ha2 :std_logic_vector (1 downto 0):= (others=> '0');
 
   begin
     multiplier1:multiplier2bit port map(a(1 downto 0),b(1 downto 0),mult1);

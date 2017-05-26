@@ -47,7 +47,7 @@ architecture Behavioral of BCDAdder is
 		s: out std_logic;
 		cout: out std_logic);
     end component;
-    signal co0,co1,co2,co3,co4,co5,s0,s1,s2,s3,s4,s5,coutSig,Andsig1,Andsig2: std_logic;
+    signal co0,co1,co2,co3,co4,co5,s0,s1,s2,s3,s4,s5,coutSig,Andsig1,Andsig2: std_logic :='0';
 begin
 
     ins0:fullAdder port map(a(0),b(0),cin,s0,co0);

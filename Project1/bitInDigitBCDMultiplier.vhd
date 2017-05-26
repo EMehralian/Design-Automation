@@ -60,10 +60,10 @@ architecture Behavioral of bitInDigitBCDMultiplier is
            cout : out std_logic;  
            s: out std_logic_vector(3 downto 0));
     end component;
-    signal ba0,ba1,ba2,ba3,ba4,ba5,ba6,ba7 : std_logic_vector(7 downto 0);
-    signal v0,vc0,v1,vc1,v2,vc2,v3,vc3,v4,vc4,v5,vc5,v6,vc6,v7,vc7:std_logic_vector(3 downto 0);
-    signal s0,s1,s2,s3,s4,s5,s6,s7,s8:std_logic_vector(3 downto 0);
-    signal c0,c1,c2,c3,c4,c5,c6,c7,c8:std_logic;
+    signal ba0,ba1,ba2,ba3,ba4,ba5,ba6,ba7 : std_logic_vector(7 downto 0):= (others=> '0');
+    signal v0,vc0,v1,vc1,v2,vc2,v3,vc3,v4,vc4,v5,vc5,v6,vc6,v7,vc7:std_logic_vector(3 downto 0):= (others=> '0');
+    signal s0,s1,s2,s3,s4,s5,s6,s7,s8:std_logic_vector(3 downto 0):= (others=> '0');
+    signal c0,c1,c2,c3,c4,c5,c6,c7,c8:std_logic := '0';
 begin
     
     ins0:BCDMultiplier port map (a(3 downto 0),b,ba0);

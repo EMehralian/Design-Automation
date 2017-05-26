@@ -43,7 +43,7 @@ end fullAdder;
 
 architecture Behavioral of fullAdder is
 
- signal SumSig : std_logic_vector(1 downto 0);
+ signal SumSig : std_logic_vector(1 downto 0):= (others=> '0');
  begin
 
  sumSig <= ('0'& a) + ('0'& b) + ('0'& cin) ;

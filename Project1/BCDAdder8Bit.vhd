@@ -49,7 +49,7 @@ Port (
        cout : out std_logic;  
        s: out std_logic_vector(3 downto 0));
 end component;
-    signal cout0,cout1,cout2,cout3,cout4,cout5,cout6,cout7,cout8 : std_logic;
+    signal cout0,cout1,cout2,cout3,cout4,cout5,cout6,cout7,cout8 : std_logic := '0';
     
 begin
     

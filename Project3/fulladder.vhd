@@ -1,3 +1,5 @@
+library ieee;
+use ieee.std_logic_1164.all;
 entity fulladder is
     Port ( a : in std_logic;
            b : in std_logic;

@@ -45,9 +45,11 @@ architecture Behavioral of BCDdivider is
 component binery8to4divider is
 port(
     clk: in std_logic;
-    A,Q,B:inout std_logic_vector(13 downto 0);
+    A:in std_logic_vector(15 downto 0);
+    Q:in std_logic_vector(15 downto 0);
+    B:in std_logic_vector(15 downto 0);
     ov: out std_logic;
-    F,D:out std_logic_vector(13 downto 0)
+    F,D:out std_logic_vector(15 downto 0)
 );
 end component;
 component BCDtoBinery is
@@ -66,11 +68,11 @@ component bin2bcd is
     );
 end component;
 signal biner1,biner2:std_logic_vector(27 downto 0);
-signal temp1,temp2:std_logic_vector(13 downto 0);
+signal temp1,temp2:std_logic_vector(15 downto 0);
 begin
 inst0: BCDtoBinery port map(A ,biner1 );
-inst1: BCDtoBinery port map("0000000000000000"&b ,biner2 );
-inst2: binery8to4divider port map(clk,biner1(27 downto 14),biner1(13 downto 0),biner2(13 downto 0),temp1,temp2,ov );
-inst3:bin2bcd port map("00"&temp1,C(3 downto 0),C(4 downto 7),C(8 downto 11),C(12 downto 15));
-inst4:bin2bcd port map("00"&temp2,D(3 downto 0),D(4 downto 7),D(8 downto 11),D(12 downto 15));
+inst1: BCDtoBinery port map("0000000000000000"&B ,biner2 );
+inst2: binery8to4divider port map(clk,"0000"&biner1(27 downto 16),biner1(15 downto 0),biner2(15 downto 0),ov,temp1,temp2);
+inst3:bin2bcd port map(temp1,C(3 downto 0),C(7 downto 4),C(11 downto 8),C(15 downto 12));
+inst4:bin2bcd port map(temp2,D(3 downto 0),D(7 downto 4),D(11 downto 8),D(15 downto 12));
 end Behavioral;

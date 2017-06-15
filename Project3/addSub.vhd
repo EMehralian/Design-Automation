@@ -3,8 +3,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 entity addsub is
    port( OP: in std_logic;
-          A,B  : in std_logic_vector(3 downto 0);
-          output  : out std_logic_vector(3 downto 0);
+          A,B  : in std_logic_vector(15 downto 0);
+          output  : out std_logic_vector(15 downto 0);
           Cout: out std_logic);
 end addsub;
 
@@ -16,17 +16,17 @@ component fulladder is
        s : out std_logic;
        cout : out std_logic);
 end component;
-signal C1, C2, C3, C4: std_logic;
-signal TMP: std_logic_vector(3 downto 0);
+signal C: std_logic_vector(16 downto 0);
+signal TMP: std_logic_vector(15 downto 0);
 
 begin
-TMP(0) <= OP xor B(0);
-TMP(1) <= OP xor B(1);
-TMP(2) <= OP xor B(2);
-TMP(3) <= OP xor B(3);
-FA0:fulladder port map(A(0),TMP(0),OP, output(0),C1);-- R0
-FA1:fulladder port map(A(1),TMP(1),C1, output(1),C2);-- R1
-FA2:fulladder port map(A(2),TMP(2),C2, output(2),C3);-- R2
-FA3:fulladder port map(A(3),TMP(3),C3, output(3),C4);-- R3
-Cout <= C4;
+c(0)<= OP;
+temp:for I in 0 to 15 generate
+    TMP(I) <= OP xor B(I);  
+end generate temp;
+
+fin:for I in 0 to 15 generate
+    FAI:fulladder port map(A(I),TMP(I),C(I), output(I),C(I+1));
+end generate fin;
+Cout <= C(16);
 end struct;
